@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalAI - Constitutional & Legal Research Assistant</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>LegalAI</span>
+                </div>
+                <nav class="nav-menu">
+                    <a href="#" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+                    <a href="#" class="nav-link"><i class="fas fa-book"></i> Laws Database</a>
+                    <a href="#" class="nav-link"><i class="fas fa-gavel"></i> Case Law</a>
+                    <a href="#" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                </nav>
+                <div class="user-actions">
+                    <button class="btn btn-outline" id="loginBtn">Login</button>
+                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Constitutional & Legal Research</span>
+                        <br>Powered by AI
+                    </h1>
+                    <p class="hero-subtitle">
+                        Access all Federal Laws, State Laws, and Constitutional provisions across the USA. 
+                        Get instant legal analysis with supporting case law citations.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-landmark"></i>
+                            <h3>Federal Laws</h3>
+                            <p>Complete U.S. Code database</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-flag-usa"></i>
+                            <h3>All 50 States</h3>
+                            <p>State statutes & regulations</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-scroll"></i>
+                            <h3>Constitution</h3>
+                            <p>Federal & State constitutions</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-briefcase"></i>
+                            <h3>Case Law</h3>
+                            <p>Court decisions & precedents</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Interface -->
+            <section class="chat-section" id="chatSection">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h2><i class="fas fa-comments"></i> Legal Assistant</h2>
+                        <p>Describe your legal concern and get relevant laws, constitutional provisions, and case law</p>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <p>Hello! I'm your AI legal research assistant. I can help you find:</p>
+                                <ul>
+                                    <li>Federal laws from the U.S. Code</li>
+                                    <li>State laws from all 50 states</li>
+                                    <li>Constitutional provisions (Federal & State)</li>
+                                    <li>Relevant case law and court decisions</li>
+                                </ul>
+                                <p>Please describe your legal concern or question, and I'll find the applicable laws to support your case.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container">
+                        <div class="quick-prompts">
+                            <button class="prompt-btn" data-prompt="Employment discrimination rights">
+                                <i class="fas fa-briefcase"></i> Employment Discrimination
+                            </button>
+                            <button class="prompt-btn" data-prompt="First Amendment free speech protections">
+                                <i class="fas fa-comment-dots"></i> Free Speech Rights
+                            </button>
+                            <button class="prompt-btn" data-prompt="Fourth Amendment search and seizure">
+                                <i class="fas fa-shield-alt"></i> Search & Seizure
+                            </button>
+                            <button class="prompt-btn" data-prompt="Due process rights under Fifth and Fourteenth Amendments">
+                                <i class="fas fa-gavel"></i> Due Process
+                            </button>
+                        </div>
+                        <form class="chat-form" id="chatForm">
+                            <div class="input-wrapper">
+                                <textarea 
+                                    id="userInput" 
+                                    placeholder="Describe your legal concern... (e.g., 'I was wrongfully terminated from my job')"
+                                    rows="1"
+                                ></textarea>
+                                <button type="submit" class="send-btn" id="sendBtn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <p class="disclaimer">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            This is for informational purposes only and does not constitute legal advice. Consult with a licensed attorney for legal counsel.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Panel -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-container">
+                    <div class="results-header">
+                        <h2><i class="fas fa-search"></i> Legal Research Results</h2>
+                        <button class="btn btn-outline" id="newSearchBtn">
+                            <i class="fas fa-redo"></i> New Search
+                        </button>
+                    </div>
+                    
+                    <div class="results-content">
+                        <div class="result-category">
+                            <h3><i class="fas fa-landmark"></i> Federal Laws</h3>
+                            <div class="result-list" id="federalLaws"></div>
+                        </div>
+                        
+                        <div class="result-category">
+                            <h3><i class="fas fa-flag-usa"></i> State Laws</h3>
+                            <div class="result-list" id="stateLaws"></div>
+                        </div>
+                        
+                        <div class="result-category">
+                            <h3><i class="fas fa-scroll"></i> Constitutional Provisions</h3>
+                            <div class="result-list" id="constitutionalLaws"></div>
+                        </div>
+                        
+                        <div class="result-category">
+                            <h3><i class="fas fa-briefcase"></i> Case Law</h3>
+                            <div class="result-list" id="caseLaw"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>LegalAI</h4>
+                    <p>Comprehensive legal research powered by artificial intelligence</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Data Sources</h4>
+                    <ul>
+                        <li><a href="https://www.law.cornell.edu/uscode" target="_blank">U.S. Code (LII)</a></li>
+                        <li><a href="https://constitution.congress.gov/" target="_blank">U.S. Constitution</a></li>
+                        <li><a href="https://www.law.cornell.edu/supremecourt" target="_blank">Supreme Court Cases</a></li>
+                        <li><a href="https://www.uscourts.gov/" target="_blank">Federal Courts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal Notice</h4>
+                    <p>This platform provides legal information, not legal advice. Always consult with a qualified attorney for your specific situation.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 LegalAI. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
